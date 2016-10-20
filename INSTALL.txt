@@ -1,0 +1,25 @@
+Installation Manual
+
+All codes implemented in this project are compatible with Linux based operating systems (codes have been checked so far in Ubuntu. The following steps should be executed in order to install and setup correctly the codes produced for this project.
+	1.	The first step includes the installation and setup of OpenMS. More details about installing OpeMS and its prerequisites are available in http://ftp.mi.fu-berlin.de/pub/OpenMS/documentation/html/install_linux.html
+	2.	Next the pyOpenMS software should be installed. For more details see here: http://ftp.mi.fu-berlin.de/pub/OpenMS/documentation/html/pyOpenMS.html 
+	3.	Extract the InSyBio_codes_and_supplementary_files.rar in a folder in your engine. We will refer to this folder as InSyBio_code_folder from now on. 
+	4.	Install the xTandem Software: 
+		a.	Download it from https://www.dropbox.com/s/7e4e97vr0xi6mfc/tandem-linux-15-04-01-1.zip?dl=0
+		b.	Place it in InSyBio_code_folder and extract it in the subfolder tandem-linux-15-04-01-1
+		c.	Place within the fasta folder of this project the .pro files included in InSyBio codes and files folder
+		d.	From the subfolder bin within the folder tandem-linux-15-04-01-1 copy the tandem.exe file and place it in the code_folder
+		e.	From the command line go to the InSyBio_code_folder and execute the following command with sudo rights: chmod a+x tandem.exe
+		f.	Check if xTandem is working by  running the ./xtandem.exe input.xml command using command line being in the code_folder
+	5.	Create the following folders within the InSyBio_code_folder: filtered_files, xtandem_input, xtandem_output.
+	6.	Create a folder within code_folder and place in it the msconverted mzML files which should be used for the learning phase
+	7.	libsvm installation: 
+		a.	Download libsvm's zip file from https://www.csie.ntu.edu.tw/~cjlin/libsvm/#download
+		b.	Place this file in the code_folder
+		c.	Extract this file in the subfolder libsvm-3.20
+		d.	Enter the libsvm-3.20/python/ folder with command line
+		e.	Run the command make
+		f.	libsvm is now installed
+		g.	Install libgs10-dev library e.g. sudo apt-get install libgsl0-dev
+		
+	
