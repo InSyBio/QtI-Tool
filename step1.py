@@ -731,7 +731,8 @@ class Individual():
         ms_ms2 = len(mz_matrix)
         (quantified, fully_quantified, reporter_ions_variation) = (0, 0, 0)
         maximum_value_per_peptide = []
-        #print(str(self.i)+'Test message 1')
+        for line in self.reference_peptides_peaks:
+            maximum_value_per_peptide.append(0)
         t0 = time.time()
         for i, mz_values in enumerate(mz_matrix):
             if i % 2000 == 0:
@@ -744,8 +745,9 @@ class Individual():
             if fq:
                 fully_quantified += 1
             reporter_ions_variation += variation
-
+            ref_pep=0
             for line in self.reference_peptides_peaks:
+                
                 found = 0
                 for val in line:
                     #A window of 0.02 mz values is used to searche nearby the reference peaks.
@@ -757,9 +759,9 @@ class Individual():
                     )
                     if dictionary_result[val + 0.02] >= 1:
                         found += 1
-
-                maximum_value_per_peptide.append((found / float(len(line))))
-
+                if found>=maximum_value_per_peptide[ref_pep]:
+                    maximum_value_per_peptide[ref_pep]=found
+                ref_pep+=1
         print '<< Spectra analysis done in %.02fs' % (time.time() - t0)
         reference_peak_similarity = sum(maximum_value_per_peptide)/float(len(maximum_value_per_peptide))
         reporter_ions_variation   = reporter_ions_variation/float(ms_ms2)
