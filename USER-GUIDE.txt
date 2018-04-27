@@ -144,7 +144,7 @@ sudo python qti_pipeline.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [ar
 		31)	[arg31] Name of the tab delimited filename where it is defined which TMT channels the users do not want to include in the analysis. e.g. ' used_channels.txt'
 		32) 	[arg32] Flag taking value 1 what classification should be applied and 0 otherwise
 		33)	[arg33] Minimum allowed similarity value to allow missing value imputation, ranges in the interval [0.2,1], default: 0.7.
-		34) [arg34] Flag variable taking value 1 if seed in random number generation should be initialized using the time in miliseconds and 0 otherwise.
+		34) 	[arg34] Flag variable taking value 1 if seed in random number generation should be initialized using the time in miliseconds and 0 otherwise.
 
 To run a simple example with the data and supplementary files for the example execution, users should just execute the following command:
 python qti_pipeline.py input_data_example reference_proteins_peptides_peaks_new.txt 10 2 0.8 0.45 0.45 0.05 0.1 initial_good_solutions.txt goal_significances_step1.txt Swissprot_Human_BLA_2014_dec_08.fasta missing_values_example.txt 0.02 900 0.5 50 0.2 0.02 classes_example.txt 10 2 0.8 0.45 0.45 0.05 0.1 goal_significances_step1.txt 5 3 use_inputs_vector_example.txt 1 0.7 0 > output.txt & 
