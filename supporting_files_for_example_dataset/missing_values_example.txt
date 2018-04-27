@@ -1,0 +1,6 @@
+filtered_CSFpaper_CSFwithColiCalibratiion_exp1_01.mzML	0	0	0	0	0	0
+filtered_CSFpaper_CSFwithColiCalibratiion_exp1_02.mzML	0	0	0	0	0	0
+filtered_CSFpaper_CSFwithColiCalibratiion_exp1_03.mzML	0	0	0	0	0	0
+filtered_CSFpaper_CSFwithColiCalibratiion_exp2_01.mzML	0	0	0	0	0	0
+filtered_CSFpaper_CSFwithColiCalibratiion_exp2_02.mzML	0	0	0	0	0	0
+filtered_CSFpaper_CSFwithColiCalibratiion_exp2_03.mzML	0	0	0	0	0	0

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<bioml label="x! taxon-to-file matching list">
+	<taxon label="human">
+		<file format="peptide" URL="tandem-linux-15-04-01-1/fasta/Human_Ecoli_2015_07.fasta.pro" />
+	</taxon>
+	<taxon label="Escherichia coli">
+		<file format="peptide" URL="tandem-linux-15-04-01-1/fasta/Human_Ecoli_2015_07.fasta.pro" />
+	</taxon>
+</bioml>
