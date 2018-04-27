@@ -1,0 +1,9 @@
+Example Dataset can be downloaded directly from: https://drive.google.com/drive/folders/1oVForrpsdxp_Fe593oU9JdH6PyZ2N02O?usp=sharing
+
+It consists of two experiments with three technical replicates (6 files in total) from the CSF-Ecoli dataset described in the paper:
+Corthesy J., et al.,An adaptive pipeline to maximize isobaric tagging data in large-scale MS-based proteomics, Journal of Proteome Research, Accepted on April 2018, In Print.
+
+The files are in .mzML format so that no further software is required for their transformation.
+
+These files should be plased in a folder in the directory where the code will run.
+
