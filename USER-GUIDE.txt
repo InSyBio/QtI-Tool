@@ -1,15 +1,15 @@
 SUMMARY
 This code is the ourcome of the project Innovative Processing of TMT Proteomics and implements the a new workflow for analyzing TMT proteomics datasets in order to exploit a higher percentage of spectra, increase the number of quantified spectra, peptides and proteins and decrease the missing quantification of proteins pre sample in large datasets.
-This workflow is called Quantify the Identify (QtI) workflow. 
+This workflow is called Quantify the Identify (QtI) workflow.  There are two alternative methods of using this code: step by step execution, and single pipeline execution.
 
-ANALYSIS EXECUTION STEPS
+ANALYSIS EXECUTION STEPS - STEPWISE
 
 Prerequisites/Input Files Format
-For both supervised and unsupervised pipelines the initial .raw files should be converted to mzML files before their utilization. This step could be executed using the msconvert method which is incorporated within the ProteoWizard software. Windows version of ProteoWizard should be downloaded in order to enable the parsing of vendor files as this is not supported for the linux based versions of ProteoWizard. When performing the conversion the following parameters and filters should be used and set in order to acquire mzML files suitable and compatible with InSyBio’s pipelines:
+For both supervised and unsupervised pipelines the initial .raw files should be converted to mzML files before their utilization. This step could be executed using the msconvert method which is incorporated within the ProteoWizard software. The Windows version of ProteoWizard should be downloaded in order to parse vendor files as this is not supported for the linux based versions of ProteoWizard. When performing the conversion the following parameters and filters should be used  in order to acquire mzML files in a format suitable and compatible with QtI’s pipelines:
 	•	32-bit precision
 	•	zlib conversion should be unchecked in order to make the output files compatible with the xTandem software
 	•	Activation filter HCD
-	•	MS filter with levels 1 and 2 selected
+	•	MS filter with levels 1 and 2 
 	•	Zero samples filter using MS levels 1 and 2 
 
 
@@ -19,7 +19,7 @@ The proposed analysis starts with the execution of step1 analysis:
 	2.	[Optional] Modify accordingly the reference_proteins_peptides_peaks.txt, initial_good_solutions.txt, goal_significances.txt, missing_values.txt
 	3.	Place in code_folder the default_input.xml which has been provided for the analysis of step1.
 	4.	Using an account with permissions to read, write, create and delete files and create, delete subfolder within the code_folder execute a similar to the following command: 
-		nohup python step1.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] [arg13] [arg14] &
+		python step1.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] [arg13] [arg14] &
 		1)	[arg1] absolute path of learning subset folder e.g. '/home/theofilatos/Documents/nihs_project/input_files/' 
 		2)	[arg2] name of a file which includes the description of the reference peptides peak lists in tab delimited format e.g. 'reference_proteins_peptides_peaks.txt'
 		3)	[arg3] Population size (Evolutionary algorithm parameter), range: [5-30], default value: 10 
@@ -37,8 +37,8 @@ The proposed analysis starts with the execution of step1 analysis:
 
 Step 2
 When the step1 code has finished (use top command from command line to see if it has finished) the users can execute the step 2 code:
-	nohup python step2.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] &
-		1)	[arg1] Absolute path of folder with all mzML files e.g. '/home/theofilatos/Documents/nihs_project/input_files2/' 
+	python step2.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] &
+		1)	[arg1] Absolute path of folder with all mzML files e.g. '/home/user/Documents/nihs_project/input_files2/' 
 		2)	[arg2] Name of the file with the best solution encoded in double precision tab delimited values as exported by step 1. e.g. 'best_solution.txt' 
 		3)	[arg3] Precision of the experiments in the mz axis, ranges in the interval [0.001-0.2], default value: 0.01
 		4)	[arg4] Retention time tolerance in seconds for the spectra matching algorithm, ranges in the interval [60, 1200], default value 600
@@ -62,30 +62,30 @@ Step 3
 	1.	The next step consists of executing the step3 test if we need to perform differential quantitation analysis (with the supervised process), or for only the optimization of Post Translational Optimizations if we follow the unsupervised pipeline.
 	2.	First the user should place within the insybio_code_filder the default_input.xml especially designed for step3 analysis.
 	3.	The users should execute the following command:
-		nohup python step3.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] [arg13] [arg14] [arg15] &
-			1)	[arg1] The name of the file which contains the classes information (typically: filename	1	2	3	4	5	6). e.g. 'classes.txt'
-			2)	[arg2] Population size (Evolutionary algorithm parameter), range: [5-30], default value: 10 
-			3)	[arg3] Maximum number of generations size (Evolutionary algorithm parameter), range: [10-200], default value: 50 
-			4)	[arg4] Percentage of pseudo random initialized solutions (Evolutionary algorithm parameter), range: [0-1], default value: 0.8 
-			5)	[arg5] Two points crossover probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.45 
-			6)	[arg6] Arithmetic crossover probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.45
-			7)	[arg7] Mutation probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.05 
-			8)	[arg8] Gaussian Mutation's variance proportion parameter (Evolutionary algorithm parameter), range: [0-1], default value: 0.1
-			9)	[arg9] Name of a tab delimited file including the significances of each one from the optimization goals e.g. 'goal_significances2.txt'
-			10)	[arg10] Name of the fasta protein database which will be used for searching the filter spectra list against e.g. 'Swissprot_Human_BLA_2014_dec_08.fasta'
-			11)	[arg11] Name of the file which includes the filenames of the spectraST databases which should be used by the code e.g. 'SpectraST_database_filenames.txt '
-			12)	[arg12] Number of folds in the cross validation training of the classifiers, ranges in the interval [2,20], default value=10.
-			13)	[arg13] path to the step2 output folder, e.g. 'step2/2016_12_31_1144562/'
-			14)	[arg14] Number of replicate experiments within the examined dataset, ranges in the interval [1,12]
-			15)	[arg15] Name of a tab delimited file which includes information about a priori known missing values in specific TMT channels in every mzML file e.g. ' missing_values.txt '
-			16)	[arg16] Name of the tab delimited filename where it is defined which TMT channels the users do not want to include in the analysis. e.g. ' used_channels.txt'
+		python step3.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] [arg13] [arg14] [arg15] &
+		1)	[arg1] The name of the file which contains the classes information (typically: filename	1	2	3	4	5	6). e.g. 'classes.txt'
+		2)	[arg2] Population size (Evolutionary algorithm parameter), range: [5-30], default value: 10 
+		3)	[arg3] Maximum number of generations size (Evolutionary algorithm parameter), range: [10-200], default value: 50 
+		4)	[arg4] Percentage of pseudo random initialized solutions (Evolutionary algorithm parameter), range: [0-1], default value: 0.8 
+		5)	[arg5] Two points crossover probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.45 
+		6)	[arg6] Arithmetic crossover probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.45
+		7)	[arg7] Mutation probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.05 
+		8)	[arg8] Gaussian Mutation's variance proportion parameter (Evolutionary algorithm parameter), range: [0-1], default value: 0.1
+		9)	[arg9] Name of a tab delimited file including the significances of each one from the optimization goals e.g. 'goal_significances2.txt'
+		10)	[arg10] Name of the fasta protein database which will be used for searching the filter spectra list against e.g. 'Swissprot_Human_BLA_2014_dec_08.fasta'
+		11)	[arg11] Name of the file which includes the filenames of the spectraST databases which should be used by the code e.g. 'SpectraST_database_filenames.txt '
+		12)	[arg12] Number of folds in the cross validation training of the classifiers, ranges in the interval [2,20], default value=10.
+		13)	[arg13] path to the step2 output folder, e.g. 'step2/2016_12_31_1144562/'
+		14)	[arg14] Number of replicate experiments within the examined dataset, ranges in the interval [1,12]
+		15)	[arg15] Name of a tab delimited file which includes information about a priori known missing values in specific TMT channels in every mzML file e.g. ' missing_values.txt '
+		16)	[arg16] Name of the tab delimited filename where it is defined which TMT channels the users do not want to include in the analysis. e.g. ' used_channels.txt'
 	4.	This code will generate the differentially quantified spectra, peptides and proteins reports, the best classification models, the models reports, .mzML files including only differentially quantified spectra in the differentially_quantified_mzML folder and the corrected unified spectra mzML file.
 	Mascot and Scaffold Searches
 	The next step of analysis is to use the quantified mzML files and the corrected unified spectral list to perform identification and quantification analysis using the standard approach (for example Mascot searching and scaffold Search and quantification). From this analysis we will need for the further continuation of the pipelines the .dat files from the Mascot search as well as the quantitative spectra report xls file from the Scaffold analysis.
 	
 Step 4
 	1.	Then the step4 should be executed using the argument mode equal to 1 to perform missing values imputation and 0 to only product the final report of results:
-		nohup python step4.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] [arg13] [arg14] [arg15] [arg16] &
+		python step4.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] [arg13] [arg14] [arg15] [arg16] &
 			1)	[arg1] Relative or absolute path to the corrected unified spectral list (mzML file) generated by step2 code. e.g. 'results_jupiter_saturn/corrected_unified_spectrum_list_missing_values_imputed.mzML'
 			2)	[arg2] Relative or absolute path to the exported by step3 script mapping_spectra_file. e.g. 'results_jupiter_saturn/mapping_spectra_file_2016_03_02_jupiter_saturn.txt' 
 			3)	[arg3] Relative or absolute path to the exported by step3 script  normalized quantitative dataset. e.g. 'results_jupiter_saturn/normalized_2016_03_02.txt' 
@@ -104,3 +104,53 @@ Step 4
 			16)	[arg16] Name of the tab delimited filename where it is defined which TMT channels the users do not want to include in the analysis. e.g. ' used_channels.txt'
 	2.	After the completion of the first execution of step4, the users could perform manually, outside of the step, the Mascot search on the unified spectral list with imputed missing values. This will generate a new *.dat file to be loaded in Scaffold to export the “quantitative spectrum report” as *.xlsx file. Then the step4 could be executed again, using the *.xlsx output as an argument and using as mode argument the value “0” in order not to apply again the missing values imputation method.
 	3.	[Optionally] The users could search the quantitative files and unified spectral list which has been created from step 9 again using the PTMs found in step 3.
+	
+	
+SINGLE PIPELINE EXECUTION
+
+To ease the execution of QtI pipeline, there is provided a single script (qti_pipeline.py together with the required qti_utils.py which includes all required functions and classes) which should be called to execute all steps. Since in between steps 3 and steps 4 it is required from the users to impute the folders of the searched mzML files this script cannot run on the background.
+This script shoud be executed by running the following command via command line :
+sudo python qti_pipeline.py [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10] [arg11] [arg12] [arg13] [arg14] [arg15] [arg16] [arg17] [arg18] [arg19] [arg20] [arg21] [arg22] [arg22] [arg23] [arg24] [arg25] [arg26] [arg27] [arg28] [arg29] [arg30] [arg31] [arg32] [arg33] [arg34]
+		1)	[arg1] absolute path of learning subset folder e.g. '/home/theofilatos/Documents/nihs_project/input_files/' 
+		2)	[arg2] name of a file which includes the description of the reference peptides peak lists in tab delimited format e.g. 'reference_proteins_peptides_peaks.txt'
+		3)	[arg3] Population size (Evolutionary algorithm parameter), range: [5-30], default value: 10 
+		4)	[arg4] Maximum number of generations size (Evolutionary algorithm parameter), range: [10-200], default value: 50 
+		5)	[arg5] Percentage of pseudo random initialized solutions (Evolutionary algorithm parameter), range: [0-1], default value: 0.8 
+		6)	[arg6] Two points crossover probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.45 
+		7)	[arg7] Arithmetic crossover probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.45
+		8)	[arg8] Mutation probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.05 
+		9)	[arg9] Gaussian Mutation's variance proportion parameter (Evolutionary algorithm parameter), range: [0-1], default value: 0.1
+		10)	[arg10] Name of a tab delimited file including a set of the initial good solutions e.g. 'initial_good_solutions.txt'
+		11)	[arg11] Name of a tab delimited file including the significances of each one from the optimization goals e.g. 'goal_significances.txt'
+		12)	[arg12] Fasta Protein Database filename
+		13)	[arg13] Name of a tab delimited file which includes information about a priori known missing values in specific TMT channels in every mzML file e.g. ' missing_values.txt '
+		14)	[arg14] Precision of the experiments in the mz axis, ranges in the interval [0.001-0.2], default value: 0.01
+		15)	[arg15] Retention time tolerance in seconds for the spectra matching algorithm, ranges in the interval [60, 1200], default value 600
+		16)	[arg16] Percentage of quantified TMT channels to consider a spectrum as quantified, default = 0
+		17)	[arg17] Maximum allowed variation in peak lists size to consider a spectral match, default=50
+		18)	[arg18] Absolute similarity threshold: the similarity measurement over which we consider a spectral match as found without comparing with the second match metric value, default=0.7
+		19)	[arg19] Minimum similarity distance from first to second match to consider a match valid, default=0.02
+		20) 	[arg20] The name of the file which contains the classes information (typically: filename	1	2	3	4	5	6). e.g. 'classes.txt'
+		21)	[arg21] Population size (Evolutionary algorithm parameter), range: [5-30], default value: 10 
+		22)	[arg22] Maximum number of generations size (Evolutionary algorithm parameter), range: [10-200], default value: 50 
+		23)	[arg23] Percentage of pseudo random initialized solutions (Evolutionary algorithm parameter), range: [0-1], default value: 0.8 
+		24)	[arg24] Two points crossover probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.45 
+		25)	[arg25] Arithmetic crossover probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.45
+		26)	[arg26] Mutation probability (Evolutionary algorithm parameter), range: [0-1], default value: 0.05 
+		27)	[arg27] Gaussian Mutation's variance proportion parameter (Evolutionary algorithm parameter), range: [0-1], default value: 0.1
+		28)	[arg28] Name of a tab delimited file including the significances of each one from the optimization goals e.g. 'goal_significances2.txt'
+		29) 	[arg29] Number of folds to be used in k-fold cross validation
+		30) 	[arg30] Number of technical replicates per sampl in the dataset
+		31)	[arg31] Name of the tab delimited filename where it is defined which TMT channels the users do not want to include in the analysis. e.g. ' used_channels.txt'
+		32) 	[arg32] Flag taking value 1 what classification should be applied and 0 otherwise
+		33)	[arg33] Minimum allowed similarity value to allow missing value imputation, ranges in the interval [0.2,1], default: 0.7.
+		34) [arg34] Flag variable taking value 1 if seed in random number generation should be initialized using the time in miliseconds and 0 otherwise.
+
+To run a simple example with the data and supplementary files for the example execution, users should just execute the following command:
+python qti_pipeline.py input_data_example reference_proteins_peptides_peaks_new.txt 10 2 0.8 0.45 0.45 0.05 0.1 initial_good_solutions.txt goal_significances_step1.txt Swissprot_Human_BLA_2014_dec_08.fasta missing_values_example.txt 0.02 900 0.5 50 0.2 0.02 classes_example.txt 10 2 0.8 0.45 0.45 0.05 0.1 goal_significances_step1.txt 5 3 use_inputs_vector_example.txt 1 0.7 0 > output.txt & 
+
+In case more than one python versions are installed, on the command below python should be replaced with python2.7 so that the pipeline is executed in python version 2.7 which have been tested for compatibility.
+
+For further details on the input files and parameters users should refer to the detailed supplementary material of the paper: Corthesy J., et al., An adaptive pipeline to maximize isobaric tagging data in large-scale MS-based proteomics, Journal of Proteome Research, Accepted in April 2018, In Print.
+
+
