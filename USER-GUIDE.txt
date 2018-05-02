@@ -1,6 +1,7 @@
 SUMMARY
 This code is the ourcome of the project Innovative Processing of TMT Proteomics and implements the a new workflow for analyzing TMT proteomics datasets in order to exploit a higher percentage of spectra, increase the number of quantified spectra, peptides and proteins and decrease the missing quantification of proteins pre sample in large datasets.
-This workflow is called Quantify the Identify (QtI) workflow.  There are two alternative methods of using this code: step by step execution, and single pipeline execution.
+This workflow is called Quantify the Identify (QtI) workflow. 
+There are two alternative methods of using this code: step by step execution, and single pipeline execution. From 07/05/2018, a virtual box compatible version of the implementation will be available also here to enable users to use QtI tool without having to install new packages.
 
 ANALYSIS EXECUTION STEPS - STEPWISE
 
