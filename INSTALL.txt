@@ -22,4 +22,4 @@ All codes implemented in this project are compatible with Linux based operating 
 		f.	libsvm is now installed
 		g.	Install libgs10-dev library e.g. sudo apt-get install libgsl0-dev
 		
-	
+From 07/05/2018 a virtual box image will also available here to ease the utilization of QtI pipeline without having to follow this installation process.	
